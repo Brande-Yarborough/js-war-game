@@ -1,5 +1,6 @@
 import { suits, values } from "./card.js";
 import Card  from "./card.js";
+import Player from "./player.js";
 
 export default Deck;
 
@@ -46,12 +47,6 @@ Deck.prototype.shuffle = function (cards) {
 
 }
 
-Deck.prototype.deal = function () {
-    
-}
-
-
-    
 
 
 const deck = new Deck(); //creates instance of deck
