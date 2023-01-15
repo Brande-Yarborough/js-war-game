@@ -1,6 +1,6 @@
 import { suits, values } from "./card.js";
 import Card  from "./card.js";
-import Player from "./player.js";
+
 
 export default Deck;
 
@@ -23,16 +23,15 @@ Deck.prototype.createDeck = function () {
     // console.log(suits, values)
 };
 
-// this.cards.push(new Card({suit, value}))
 
 Deck.prototype.shuffle = function (cards) {
 
     for (let i = 0; i < cards.length; i++ ) {
         let random = Math.floor(Math.random() * 51);
-        console.log({i, random})
+        // console.log({i, random})
 
 
-        console.log(cards[i])
+        // console.log(cards[i])
         //The card that's located at the RANDOM index is now equal to our current card
         cards[i] = cards[random]; 
         // The card located at our current index is moved to our RANDOM index
@@ -47,13 +46,11 @@ Deck.prototype.shuffle = function (cards) {
 
 }
 
-
-
-const deck = new Deck(); //creates instance of deck
+export const deck = new Deck(); //creates instance of deck
 deck.createDeck();
-console.log(deck.cards);
+// // console.log(deck.cards);
 deck.shuffle(deck.cards);
-console.log(deck.cards)
+// console.log(deck.cards)
 
 
 
