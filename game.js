@@ -10,23 +10,32 @@ export default Game;
 const player1 = new Player({ name: "name1", hand: [] })
 const player2 = new Player({ name: "name2", hand: [] })
 
+let warIndex = 1; //first iteration of playWar
+
+function Game({ player1, player2 } = {}) {
+    this.player1 = player1;
+    this.player2 = player2;
+    
+  }
+
+
+
 //Deal
 
-Deck.prototype.deal = function () {
+Game.prototype.deal = function () {
 
     //remainder loops through shuffle array and gives 1 or 0
   for (let i = 0; i < deck.cards.length; i++) {
         let card = i % 2;
     if (i % 2 === 0) {
-      player1.hand.push(deck.cards[i]);
+      this.player1.hand.push(deck.cards[i]);
       //will push onto player1 hand
     } else {
-      player2.hand.push(deck.cards[i]);
+      this.player2.hand.push(deck.cards[i]);
     }
     //will push onto player2 hand
   }
 }
-  deck.deal();
   console.log(player1.hand);
   console.log(player2.hand);
 
@@ -45,18 +54,16 @@ Deck.prototype.deal = function () {
 
 // console.log(testing)
 
-function Game({ player1, player2 } = {}) {
-  this.player1 = player1;
-  this.player2 = player2;
-  
-}
 
 // Game.prototype;
+
 
 Game.prototype.play = function () {
     const player1Card = this.player1.hand[0]; //gives value of player 1 card at index 0
     const player2Card = this.player2.hand[0]; //gives value of player 2 card at index 0
-    this.compare(player1Card, player2Card);
+    warIterations = 0;
+    return this.compare(player1Card, player2Card);
+    
 }
 
 Game.prototype.compare = function (player1Card, player2Card) {
@@ -64,17 +71,81 @@ Game.prototype.compare = function (player1Card, player2Card) {
     const player2CardValue = player2Card.value;
     const player1Index = values.indexOf(player1CardValue);//use indexOf to compare player 1 card value to player 2 card value
     const player2Index = values.indexOf(player2CardValue);
+    
     if (player1Index > player2Index) {
             // player 1 wins, add both player 1 card and player 2 card to player 1 hand
             //takes winner cards and places on their hand
+            addCardsToHand(this.player1.hand, player1Card, player2Card);
+            removeCardsFromHand(this.player2.hand, player2Card);
+            return 'Player 1 wins round!'
+
     } else if (player2Index > player1Index) {
         //player 2 wins, takes winner cards and places on their hand
-    } else {//WAR!!
+            addCardsToHand(this.player2.hand, player2Card, player1Card);
+            removeCardsFromHand(this.player1.hand, player1Card);
+            return 'Player 2 wins round!'
+    } else { 
+            playWar();
     }
+}
+const warIterations = 0;
+function playWar () {
+    const warPlayer1Cards = player1.hand.slice((warIterations * 4) + 1, 4)
+    const warPlayer2Cards = player2.hand.slice((warIterations * 4) + 1, 4)
+    const winner = compareWar(warPlayer1Cards, warPlayer2Cards);
+   //creates new array for playWar to compare, so index starts over at 0
+    warIterations += 1;
+    return winner;
+}
+
+function compareWar (warPlayer1Cards, warPlayer2Cards) {
+    const compareWarPlayer1Card = warPlayer1Cards[3];
+    const compareWarPlayer2Card = warPlayer2Cards[3];
+    const player1CardValue = compareWarPlayer1Card.value;
+    const player2CardValue = compareWarPlayer2Card.value;
+    const player1Index = values.indexOf(player1CardValue);//use indexOf to compare player 1 card value to player 2 card value
+    const player2Index = values.indexOf(player2CardValue);
+    const p1Cards = this.player1.hand.slice(0, (warIterations * 4) + 5);
+    const p2Cards = this.player2.hand.slice(0, (warIterations * 4) + 5);
+
+    if (player1Index > player2Index) {
+
+            // player 1 wins, add both player 1 card and player 2 card to player 1 hand
+            //takes winner cards and places on their hand
+            addCardsToHand(this.player1.hand, ...p1Cards.concat(p2Cards));
+            removeCardsFromHand(this.player2.hand, ...p2Cards);
+            return 'Player 1 wins round!'
+
+    } else if (player2Index > player1Index) {
+        //player 2 wins, takes winner cards and places on their hand
+            addCardsToHand(this.player2.hand, ...p2Cards.concat(p1Cards));
+            removeCardsFromHand(this.player1.hand, ...p1Cards);
+            return 'Player 2 wins round!'
+    } else { 
+            playWar();
+    }
+
 }
 
 function addCardsToHand (hand, ...cards) { //use spread operator since we don't know how many cards winner will get added to hand(whether it is just two cards or will be more if it is WAR)
+    hand.push(...cards);
+    hand.shift();
+}
 
+function removeCardsFromHand (hand, ...cards) {
+    
+    for (let i=0; i < cards.length; i++) {
+        hand.shift();
+    }
+}
+
+Game.prototype.winsGame = function() {
+    if (this.player2.hand.length === 0 ) {
+        return 'Player 1 wins game!'
+    } else if (this.player1.hand.length === 0) {
+        return 'Player 2 wins!'
+    } 
+    return null;
 }
 
 
