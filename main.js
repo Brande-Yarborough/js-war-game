@@ -3,7 +3,8 @@ import deck from './deck.js';
 import Card from './card.js';
 import player from './player.js';
 
-
+const $playbutton = document.querySelector('.play-round');
+addEventListener(onclick,)
 
 
 
