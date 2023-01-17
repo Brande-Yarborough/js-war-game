@@ -103,7 +103,7 @@ function compareWar (warPlayer1Cards, warPlayer2Cards, player1, player2) {
     const player2Index = values.indexOf(player2CardValue);
     const p1Cards = player1.hand.slice(0, (warIterations * 4) + 5);
     const p2Cards = player2.hand.slice(0, (warIterations * 4) + 5);
-debugger;
+
     if (player1Index > player2Index) {
 
             // player 1 wins, add both player 1 card and player 2 card to player 1 hand

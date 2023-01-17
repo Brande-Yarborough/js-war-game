@@ -10,8 +10,8 @@ startGameButton.addEventListener('click', function() { startGame(); }, false);
 const playRoundButton = document.querySelector('.play-round');
 playRoundButton.addEventListener('click', function() {playRound();}, false);
 
-const computerDeck = document.querySelector('.computer-deck');
-const playerDeck = document.querySelector('.player-deck');
+const computerDeck = document.querySelector('.computer-count');
+const playerDeck = document.querySelector('.player-count');
 
 
 

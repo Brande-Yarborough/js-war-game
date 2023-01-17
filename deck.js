@@ -5,7 +5,7 @@ import Card  from "./card.js";
 export default Deck;
 
 function Deck () {
-    this.cards = []; //get cards inside empty array
+    this.cards = []; //get 52 cards inside empty array
     
 }
 Deck.prototype.createDeck = function () {
