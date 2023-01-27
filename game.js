@@ -3,18 +3,16 @@ import Deck from "./deck.js";
 import {deck} from "./deck.js";
 import {values} from "./card.js";
 
-export default Game;
-
 
 
 let warIterations = 0; //first iteration of playWar
 
 
-function Game({ player1, player2 } = {}) {
-    this.player1 = player1;
-    this.player2 = player2;
-    
-  }
+function Game ({player1, player2}) {
+     this.player1 = player1;
+     this.player2 = player2;
+  };
+
 
 
 
@@ -68,6 +66,7 @@ Game.prototype.compare = function (player1Card, player2Card) {
     const player2CardValue = player2Card.value;
     const player1Index = values.indexOf(player1CardValue);//use indexOf to compare player 1 card value to player 2 card value
     const player2Index = values.indexOf(player2CardValue);
+    console.log({player1Index, player2Index})
     
     if (player1Index > player2Index) {
             // player 1 wins, add both player 1 card and player 2 card to player 1 hand
@@ -82,10 +81,12 @@ Game.prototype.compare = function (player1Card, player2Card) {
             removeCardsFromHand(this.player1.hand, player1Card);
             return `${this.player2.name} wins round!`
     } else { 
-            playWar(this.player1, this.player2);
+            return playWar(this.player1, this.player2);
     }
 }
 function playWar (player1, player2) {
+    if (player1.hand.length < 5 || player2.hand.length < 5) console.log('not enough cards to play') //if hit war and players dont have enough cards
+    //need to write prompt for when player does not have enough cards
     const warPlayer1Cards = player1.hand.slice((warIterations * 4) + 1, 5)
     const warPlayer2Cards = player2.hand.slice((warIterations * 4) + 1, 5)
     const winner = compareWar(warPlayer1Cards, warPlayer2Cards, player1, player2);
@@ -103,6 +104,8 @@ function compareWar (warPlayer1Cards, warPlayer2Cards, player1, player2) {
     const player2Index = values.indexOf(player2CardValue);
     const p1Cards = player1.hand.slice(0, (warIterations * 4) + 5);
     const p2Cards = player2.hand.slice(0, (warIterations * 4) + 5);
+
+    console.log('compare war is running');
 
     if (player1Index > player2Index) {
 
@@ -146,6 +149,12 @@ Game.prototype.winsGame = function() {
     } 
     return null;
 }
+
+export default Game;
+
+
+
+
 
 
 // const game = new Game();

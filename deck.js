@@ -2,7 +2,6 @@ import { suits, values } from "./card.js";
 import Card  from "./card.js";
 
 
-export default Deck;
 
 function Deck () {
     this.cards = []; //get 52 cards inside empty array
@@ -52,6 +51,7 @@ deck.createDeck();
 deck.shuffle(deck.cards);
 // console.log(deck.cards)
 
+export default Deck;
 
 
 

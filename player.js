@@ -6,7 +6,7 @@ this.name = name;
 this.hand = hand;
 
 }
-//don't think I need this
+//don't think I need this here
 // let player1 = new Player ({
 //     name: "Player 1",
 // });
