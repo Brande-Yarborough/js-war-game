@@ -56,6 +56,16 @@ Game.prototype.compare = function (player1Card, player2Card) {
   const player2Index = values.indexOf(player2CardValue);
   console.log({ player1Index, player2Index });
 
+  document.getElementById("player1-card").innerHTML = [
+    this.player1.hand[0].value,
+    this.player1.hand[0].suit,
+  ];
+
+  document.getElementById("player2-card").innerHTML = [
+    this.player2.hand[0].value,
+    this.player2.hand[0].suit,
+  ];
+
   if (player1Index > player2Index) {
     // player 1 wins, add both player 1 card and player 2 card to player 1 hand
     //takes winner cards and places on their hand
